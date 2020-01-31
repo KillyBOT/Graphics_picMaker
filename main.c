@@ -12,15 +12,10 @@ int initPic(char* fileName, int w, int h);
 
 int main(int argc, char* argv[]){
 
-  printf("Test\n");
-
   int fd = initPic("pic.ppm",WIDTH,HEIGHT);
 
   for(int x = 0; x < WIDTH*HEIGHT; x++){
     writePixelRaw(fd, 100,0,0);
-    if(x < WIDTH*HEIGHT - 1){
-      write(fd, " ", 1);
-    }
   }
 
   close(fd);
@@ -38,8 +33,6 @@ void writePixelRaw(int fd, int r, int g, int b){
 
 int initPic(char* fileName, int w, int h){
   int fd = open("pic.ppm",O_CREAT | O_WRONLY,0666);
-
-  printf("Test\n");
 
   char wHString[32] = "";
 
