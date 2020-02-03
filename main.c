@@ -3,15 +3,15 @@
 #include <string.h>
 #include <math.h>
 
-#define WIDTH 1200
-#define HEIGHT 800
+#define WIDTH 500
+#define HEIGHT 500
 #define COLORDEPTH 255
 
 #define RMIN -2
 #define RMAX 1
 #define IMAX 1
 #define IMIN -1
-#define ZOOM 299
+#define ZOOM 300
 
 #define RZOOM -.7453
 #define IZOOM .1127
@@ -44,8 +44,6 @@ int main(int argc, char* argv[]){
   rScale = ( rMax - rMin ) / (double)WIDTH;
   iScale = ( iMax - iMin ) / (double)HEIGHT;
 
-  printf("%f %f\n", rScale, iScale);
-
   for(int i = 1; i <= HEIGHT; i++){
     for(int r = 1; r <= WIDTH; r++){
       cR = (r * rScale) + rMin;
@@ -66,7 +64,7 @@ int main(int argc, char* argv[]){
 
       toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
 
-      finalR = (toDrawDepth * 4) % COLORDEPTH;
+      finalR = (toDrawDepth * 1) % COLORDEPTH;
       finalG = (toDrawDepth * 2) % COLORDEPTH;
       finalB = (toDrawDepth * 3) % COLORDEPTH;
 
