@@ -41,7 +41,6 @@ int main(int argc, char* argv[]){
   iMin = (double)IZOOM - ( ( (double)IZOOM - (double)IMIN) / (double)ZOOM);
   iMax = (double)IZOOM + ( ( (double)IMAX - (double)IZOOM) / (double)ZOOM);
 
-
   rScale = ( rMax - rMin ) / (double)WIDTH;
   iScale = ( iMax - iMin ) / (double)HEIGHT;
 
@@ -65,7 +64,7 @@ int main(int argc, char* argv[]){
         currentDepth++;
       }
 
-      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth + 1;
+      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
 
       finalR = (toDrawDepth * 4) % COLORDEPTH;
       finalG = (toDrawDepth * 2) % COLORDEPTH;
