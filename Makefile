@@ -1,10 +1,10 @@
 CC = gcc
 
 all: main.o
-	$(CC) -lm -o picMaker main.o
+	$(CC) -o picMaker main.o -lm
 
 main.o: main.c
-	$(CC) -lm -c main.c
+	$(CC) -c main.c -lm
 
 run: picMaker
-	./picMaker
+	./picMaker 300
