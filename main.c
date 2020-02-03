@@ -11,6 +11,8 @@
 #define RMAX 1
 #define IMAX 1
 #define IMIN -1
+#define ZOOM 1
+
 #define MAXDEPTH 25
 
 int main(int argc, char* argv[]){
@@ -27,26 +29,10 @@ int main(int argc, char* argv[]){
   int currentDepth;
   int toDrawDepth;
 
-  /*int gStartR, gStartG, gStartB;
-  int gEndR, gEndG, gEndB;
-  int gDiffR, gDiffG, gDiffB;
-
-  gStartR = 0;
-  gStartG = 0;
-  gStartB = 200;
-
-  gEndR = 0;
-  gEndG = 200;
-  gEndB = 200;
-
-  gDiffR = gEndR - gStartR;
-  gDiffG = gEndG - gStartG;
-  gDiffB = gEndB - gStartB;*/
-
   int finalR, finalG, finalB;
 
-  rScale = ((double)RMAX - (double)RMIN) / (double)WIDTH;
-  iScale = ((double)IMAX - (double)IMIN) / (double)HEIGHT;
+  rScale = ( ( (double)RMAX / (double)ZOOM)  - ( (double)RMIN / (double)ZOOM ) ) / (double)WIDTH;
+  iScale = ( ( (double)IMAX / (double)ZOOM)  - ( (double)IMIN / (double)ZOOM ) ) / (double)HEIGHT;
 
   printf("%f %f\n", rScale, iScale);
 
@@ -68,10 +54,10 @@ int main(int argc, char* argv[]){
         currentDepth++;
       }
 
-      //toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
-      finalR = currentDepth * 8;
-      finalG = currentDepth << 10;
-      finalB = currentDepth << 21;
+      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
+      finalR = ((toDrawDepth * 3)) % COLORDEPTH;
+      finalG = toDrawDepth % COLORDEPTH;
+      finalB = (toDrawDepth * 5) % COLORDEPTH;
 
       fprintf(f, "%d %d %d ",finalR,finalG,finalB);
     }
