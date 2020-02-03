@@ -11,9 +11,12 @@
 #define RMAX 1
 #define IMAX 1
 #define IMIN -1
-#define ZOOM 1
+#define ZOOM 299
 
-#define MAXDEPTH 25
+#define RZOOM -.7453
+#define IZOOM .1127
+
+#define MAXDEPTH 255
 
 int main(int argc, char* argv[]){
 
@@ -31,15 +34,23 @@ int main(int argc, char* argv[]){
 
   int finalR, finalG, finalB;
 
-  rScale = ( ( (double)RMAX / (double)ZOOM)  - ( (double)RMIN / (double)ZOOM ) ) / (double)WIDTH;
-  iScale = ( ( (double)IMAX / (double)ZOOM)  - ( (double)IMIN / (double)ZOOM ) ) / (double)HEIGHT;
+  double rMin, rMax, iMin, iMax;
+
+  rMin = (double)RZOOM - ( ( (double)RZOOM - (double)RMIN) / (double)ZOOM);
+  rMax = (double)RZOOM + ( ( (double)RMAX - (double)RZOOM) / (double)ZOOM);
+  iMin = (double)IZOOM - ( ( (double)IZOOM - (double)IMIN) / (double)ZOOM);
+  iMax = (double)IZOOM + ( ( (double)IMAX - (double)IZOOM) / (double)ZOOM);
+
+
+  rScale = ( rMax - rMin ) / (double)WIDTH;
+  iScale = ( iMax - iMin ) / (double)HEIGHT;
 
   printf("%f %f\n", rScale, iScale);
 
   for(int i = 1; i <= HEIGHT; i++){
     for(int r = 1; r <= WIDTH; r++){
-      cR = (r * rScale) + RMIN;
-      cI = (i * iScale) + IMIN;
+      cR = (r * rScale) + rMin;
+      cI = (i * iScale) + iMin;
 
       zR = 0;
       zI = 0;
@@ -54,10 +65,11 @@ int main(int argc, char* argv[]){
         currentDepth++;
       }
 
-      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
-      finalR = ((toDrawDepth * 3)) % COLORDEPTH;
-      finalG = toDrawDepth % COLORDEPTH;
-      finalB = (toDrawDepth * 5) % COLORDEPTH;
+      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth + 1;
+
+      finalR = (toDrawDepth * 4) % COLORDEPTH;
+      finalG = (toDrawDepth * 2) % COLORDEPTH;
+      finalB = (toDrawDepth * 3) % COLORDEPTH;
 
       fprintf(f, "%d %d %d ",finalR,finalG,finalB);
     }
