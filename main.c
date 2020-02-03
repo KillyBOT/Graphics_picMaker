@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 1200
+#define HEIGHT 800
 #define COLORDEPTH 255
 
 #define RMIN -2
@@ -16,7 +16,7 @@
 #define RZOOM -.7453
 #define IZOOM .1127
 
-#define MAXDEPTH 255
+#define MAXDEPTH 3000
 
 int main(int argc, char* argv[]){
 
@@ -62,11 +62,11 @@ int main(int argc, char* argv[]){
         currentDepth++;
       }
 
-      toDrawDepth = (int)((COLORDEPTH / MAXDEPTH)) * currentDepth;
+      toDrawDepth = (int)(((double)(currentDepth + 1)/(double)MAXDEPTH) * COLORDEPTH);
 
-      finalR = (toDrawDepth * 1) % COLORDEPTH;
-      finalG = (toDrawDepth * 2) % COLORDEPTH;
-      finalB = (toDrawDepth * 3) % COLORDEPTH;
+      finalR = (toDrawDepth * 2) % COLORDEPTH;
+      finalG = (toDrawDepth * 3) % COLORDEPTH;
+      finalB = (toDrawDepth * 5) % COLORDEPTH;
 
       fprintf(f, "%d %d %d ",finalR,finalG,finalB);
     }
